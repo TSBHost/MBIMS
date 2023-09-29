@@ -42,16 +42,22 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item 
-                    @if(Route::currentRouteName() == 'backend.brand.edit' ||
-                    Route::currentRouteName() == 'backend.brand.index' ||
-                    Route::currentRouteName() == 'backend.brand.create') menu-open @endif">
+                <li class="nav-item">
                     <a href="{{route('backend.brand.index')}}" class="nav-link                
                     @if(Route::currentRouteName() == 'backend.brand.edit' ||
                     Route::currentRouteName() == 'backend.brand.index' ||
                     Route::currentRouteName() == 'backend.brand.create') active @endif">
                         <i class="fas fa-certificate  nav-icon"></i>
                         <p>Brand</p>
+                    </a>
+                </li>
+                <li class="nav-item" >
+                    <a href="{{route('backend.unit.index')}}" class="nav-link                
+                    @if(Route::currentRouteName() == 'backend.unit.edit' ||
+                    Route::currentRouteName() == 'backend.unit.index' ||
+                    Route::currentRouteName() == 'backend.unit.create') active @endif">
+                        <i class="fas fa-ruler nav-icon"></i>
+                        <p>Unit</p>
                     </a>
                 </li>
                 <!-- <li class="nav-item">
