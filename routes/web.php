@@ -4,6 +4,8 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\AreaController;
+use App\Models\Area;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +46,7 @@ Route::middleware('auth')->prefix("admin")->group(function () {
 
     Route::resource("brand", BrandController::class, ['as' => 'backend']);
     Route::resource("unit", UnitController::class, ['as' => 'backend']);
+    Route::resource("area", AreaController::class, ['as' => 'backend']);
 });
 
 require __DIR__ . '/auth.php';

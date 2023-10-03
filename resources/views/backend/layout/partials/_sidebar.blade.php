@@ -60,6 +60,15 @@
                         <p>Unit</p>
                     </a>
                 </li>
+                <li class="nav-item" >
+                    <a href="{{route('backend.area.index')}}" class="nav-link                
+                    @if(Route::currentRouteName() == 'backend.area.edit' ||
+                    Route::currentRouteName() == 'backend.area.index' ||
+                    Route::currentRouteName() == 'backend.area.create') active @endif">
+                        <i class="fas fa-ruler nav-icon"></i>
+                        <p>Area</p>
+                    </a>
+                </li>
                 <!-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
