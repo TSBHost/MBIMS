@@ -69,6 +69,24 @@
                         <p>Area</p>
                     </a>
                 </li>
+                <li class="nav-item" >
+                    <a href="{{route('backend.category.index')}}" class="nav-link                
+                    @if(Route::currentRouteName() == 'backend.category.edit' ||
+                    Route::currentRouteName() == 'backend.category.index' ||
+                    Route::currentRouteName() == 'backend.category.create') active @endif">
+                        <i class="fas fa-ruler nav-icon"></i>
+                        <p>Category</p>
+                    </a>
+                </li>
+                <li class="nav-item" >
+                    <a href="{{route('backend.supplier.index')}}" class="nav-link                
+                    @if(Route::currentRouteName() == 'backend.supplier.edit' ||
+                    Route::currentRouteName() == 'backend.supplier.index' ||
+                    Route::currentRouteName() == 'backend.supplier.create') active @endif">
+                        <i class="fas fa-ruler nav-icon"></i>
+                        <p>Supplier</p>
+                    </a>
+                </li>
                 <!-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
