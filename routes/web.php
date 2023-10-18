@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,7 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::resource("area", AreaController::class, ['as' => 'backend']);
     Route::resource("category", CategoryController::class, ['as' => 'backend']);
     Route::resource("supplier", SupplierController::class, ['as' => 'backend']);
+    Route::resource("product", ProductController::class, ['as' => 'backend']);
 });
 
 require __DIR__ . '/auth.php';

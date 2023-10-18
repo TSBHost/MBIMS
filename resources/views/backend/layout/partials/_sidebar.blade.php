@@ -87,6 +87,15 @@
                         <p>Supplier</p>
                     </a>
                 </li>
+                <li class="nav-item" >
+                    <a href="{{route('backend.product.index')}}" class="nav-link                
+                    @if(Route::currentRouteName() == 'backend.product.edit' ||
+                    Route::currentRouteName() == 'backend.product.index' ||
+                    Route::currentRouteName() == 'backend.product.create') active @endif">
+                        <i class="fas fa-ruler nav-icon"></i>
+                        <p>Product</p>
+                    </a>
+                </li>
                 <!-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>

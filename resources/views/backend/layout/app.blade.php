@@ -28,6 +28,12 @@
   <link rel="stylesheet" href="{{asset('backend/plugins/summernote/summernote-bs4.min.css')}}">
 
   @yield('style-section')
+  <style>
+  .select2-container .select2-selection--single
+  {
+    height: auto;
+  }
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
