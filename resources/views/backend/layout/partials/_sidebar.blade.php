@@ -96,6 +96,15 @@
                         <p>Product</p>
                     </a>
                 </li>
+                <li class="nav-item" >
+                    <a href="{{route('backend.purchase.index')}}" class="nav-link                
+                    @if(Route::currentRouteName() == 'backend.purchase.edit' ||
+                    Route::currentRouteName() == 'backend.purchase.index' ||
+                    Route::currentRouteName() == 'backend.purchase.create') active @endif">
+                        <i class="fas fa-ruler nav-icon"></i>
+                        <p>Purchase</p>
+                    </a>
+                </li>
                 <!-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
