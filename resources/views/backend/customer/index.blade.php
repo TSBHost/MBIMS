@@ -1,6 +1,6 @@
 @extends("backend.layout.app")
 
-@section("title","Product")
+@section("title","Customer")
 @section("style-section")
 
 <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -11,14 +11,14 @@
 @section("header-section")
 <div class="row mb-2">
     <div class="col-sm-6">
-        <h1 class="m-0">Product
-            <a href="{{route('backend.product.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Add New</a>
+        <h1 class="m-0">Customer
+            <a href="{{route('backend.customer.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Add New</a>
         </h1>
     </div><!-- /.col -->
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Product</li>
+            <li class="breadcrumb-item active">Customer</li>
         </ol>
     </div><!-- /.col -->
 </div><!-- /.row -->
@@ -50,7 +50,7 @@
     <div class="col-md-12">
         <div class="card card-warning">
             <div class="card-header">
-                <h3 class="card-title">Product List</h3>
+                <h3 class="card-title">Customer List</h3>
                 <div class="float-right">
 
                 </div>
@@ -59,7 +59,7 @@
             <div class="card-body">
                 <form method="get">
                     <div class="row mb-2">
-                        <div class="col-md-3 text-right"><label>Search Product</label></div>
+                        <div class="col-md-3 text-right"><label>Search Customer</label></div>
                         <div class="col-md-6">
                             <input type="text" name="search_text" class="form-control" value="{{Request::get('search_text')}}">
                         </div>
@@ -70,11 +70,10 @@
                     <thead>
                         <tr>
                             <th>SL</th>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Brand</th>
-                            <th>Unit</th>
-                            <th>Logo</th>
+                            <th>Customer Name</th>
+                            <th>Contact Person</th>
+                            <th>Email</th>
+                            <th>Phone</th>
                             <th>Active</th>
                             <th>Action</th>
                         </tr>
@@ -83,32 +82,24 @@
                         @php
                         $index=(((Request::get("page")?Request::get("page"):1)-1)*20)+1;
                         @endphp
-                        @foreach($products as $product)
+                        @foreach($customers as $customer)
                         <tr>
                             <td>{{$index++}}</td>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->category->name}}</td>
-                            <td>{{$product->brand->name}}</td>
-                            <td>{{$product->unit->name}}</td>
-                            <td>
-                                @if ($product->image)
-                                <img src="{{asset($product->image)}}" width="80px">
-                                @else
-                                N/A
-                                @endif
-
-                            </td>
+                            <td>{{$customer->name}}</td>
+                            <td>{{$customer->contact_person}}</td>
+                            <td>{{$customer->email}}</td>
+                            <td>{{$customer->phone}}</td>
                             <td>
                                 <b class="">
-                                    @if($product->is_active==1)
+                                    @if($customer->is_active==1)
                                     <span class="badge badge-success" style="font-size:100%">YES</span>
                                     @else
                                     <span class="badge badge-danger" style="font-size:100%">NO</span>
                                     @endif</b>
                             </td>
                             <td>
-                                <a href="{{route('backend.product.edit',$product->id)}}" class="btn btn-icon btn-warning"><i class="fas fa-edit"></i></a>
-                                <a href="" data-id="{{$product->id}}" data-url="{{route('backend.product.destroy',$product->id)}}" class="btn_delete btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
+                                <a href="{{route('backend.customer.edit',$customer->id)}}" class="btn btn-icon btn-warning"><i class="fas fa-edit"></i></a>
+                                <a href="" data-id="{{$customer->id}}" data-url="{{route('backend.customer.destroy',$customer->id)}}" class="btn_delete btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                         @endforeach
@@ -117,11 +108,10 @@
                     <tfoot>
                         <tr>
                             <th>SL</th>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Brand</th>
-                            <th>Unit</th>
-                            <th>Logo</th>
+                            <th>Customer Name</th>
+                            <th>Contact Person</th>
+                            <th>Email</th>
+                            <th>Phone</th>
                             <th>Active</th>
                             <th>Action</th>
 
@@ -131,7 +121,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer text-sm-center">
-                {{$products->withQueryString()->links()}}
+                {{$customers->withQueryString()->links()}}
             </div>
         </div>
     </div>
@@ -157,7 +147,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
-000    $(document).ready(function() {
+    $(document).ready(function() {
         $(".btn_delete").click(function(e) {
             e.preventDefault();
 
