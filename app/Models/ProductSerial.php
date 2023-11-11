@@ -13,6 +13,9 @@ class ProductSerial extends Model
         "purchase_details_id",
         "product_id",
         "serial_number",
+        "is_sold",
+        "sale_id",
+        "sale_details_id",
         "creator",
         "note"
     ];

@@ -1,24 +1,26 @@
 @extends("backend.layout.app")
 
-@section("title","Product")
+@section("title","Sale")
 @section("style-section")
 
 <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.css">
+<link rel="stylesheet" href="{{asset('backend/plugins/select2/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{asset('backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 @endsection
 @section("header-section")
 <div class="row mb-2">
     <div class="col-sm-6">
-        <h1 class="m-0">Product
-            <a href="{{route('backend.product.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Add New</a>
+        <h1 class="m-0">Sale
+            <a href="{{route('backend.sale.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Add New</a>
         </h1>
     </div><!-- /.col -->
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Product</li>
+            <li class="breadcrumb-item active">Sale</li>
         </ol>
     </div><!-- /.col -->
 </div><!-- /.row -->
@@ -50,7 +52,7 @@
     <div class="col-md-12">
         <div class="card card-warning">
             <div class="card-header">
-                <h3 class="card-title">Product List</h3>
+                <h3 class="card-title">Sale List</h3>
                 <div class="float-right">
 
                 </div>
@@ -59,23 +61,43 @@
             <div class="card-body">
                 <form method="get">
                     <div class="row mb-2">
-                        <div class="col-md-3 text-right"><label>Search Product</label></div>
-                        <div class="col-md-6">
-                            <input type="text" name="search_text" class="form-control" value="{{Request::get('search_text')}}">
+                        <div class="col-md-5">
+                            <div class="row">
+
+                                <div class="col-md-3 text-right"><label>Customer</label></div>
+                                <div class="col-md-6">
+                                    <select name="customer_id" id="customer_id" class="form-control select2">
+                                        <option value="">All</option>
+                                        @foreach ($customers as $customer)
+
+                                        <option value="{{$customer->id}}" @if(Request::get('customer_id')==$customer->id) selected @endif>{{$customer->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3"><button type="submit" class="btn btn-info">Search</button> </div>
+                        <div class="col-md-5">
+                            <div class="row">
+
+                                <div class="col-md-3 text-right"><label>Date</label></div>
+                                <div class="col-md-6">
+                                    <input type="text" name="sale_date" class="form-control datepicker" value="{{Request::get('sale_date')}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2"><button type="submit" class="btn btn-info">Search</button> </div>
                     </div>
                 </form>
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>SL</th>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Brand</th>
-                            <th>Unit</th>
-                            <th>Logo</th>
-                            <th>Active</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Total Quantity</th>
+                            <th>Product Count</th>
+                            <th>Total Amount</th>
+                            <th>Paid Amount</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -83,32 +105,18 @@
                         @php
                         $index=(((Request::get("page")?Request::get("page"):1)-1)*20)+1;
                         @endphp
-                        @foreach($products as $product)
+                        @foreach($sales as $sale)
                         <tr>
                             <td>{{$index++}}</td>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->category->name}}</td>
-                            <td>{{$product->brand->name}}</td>
-                            <td>{{$product->unit->name}}</td>
+                            <td>{{$sale->sale_date}}</td>
+                            <td>{{$sale->customer->name}}</td>
+                            <td>{{$sale->details->sum('quantity')}}</td>
+                            <td>{{count($sale->details)}}</td>
+                            <td>{{$sale->total_amount}}</td>
+                            <td>{{$sale->paid_amount}}</td>
                             <td>
-                                @if ($product->image)
-                                <img src="{{asset($product->image)}}" width="80px">
-                                @else
-                                N/A
-                                @endif
-
-                            </td>
-                            <td>
-                                <b class="">
-                                    @if($product->is_active==1)
-                                    <span class="badge badge-success" style="font-size:100%">YES</span>
-                                    @else
-                                    <span class="badge badge-danger" style="font-size:100%">NO</span>
-                                    @endif</b>
-                            </td>
-                            <td>
-                                <a href="{{route('backend.product.edit',$product->id)}}" class="btn btn-icon btn-warning"><i class="fas fa-edit"></i></a>
-                                <a href="" data-id="{{$product->id}}" data-url="{{route('backend.product.destroy',$product->id)}}" class="btn_delete btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
+                                <a href="{{route('backend.sale.edit',$sale->id)}}" class="btn btn-icon btn-warning"><i class="fas fa-edit"></i></a>
+                                <a href="" data-id="{{$sale->id}}" data-url="{{route('backend.sale.destroy',$sale->id)}}" class="btn_delete btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                         @endforeach
@@ -117,12 +125,12 @@
                     <tfoot>
                         <tr>
                             <th>SL</th>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Brand</th>
-                            <th>Unit</th>
-                            <th>Logo</th>
-                            <th>Active</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Total Quantity</th>
+                            <th>Product Count</th>
+                            <th>Total Amount</th>
+                            <th>Paid Amount</th>
                             <th>Action</th>
 
                         </tr>
@@ -131,7 +139,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer text-sm-center">
-                {{$products->withQueryString()->links()}}
+                {{$sales->withQueryString()->links()}}
             </div>
         </div>
     </div>
@@ -155,9 +163,18 @@
 <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{{asset('backend/plugins/select2/js/select2.full.min.js')}}"></script>
 
 <script>
     $(document).ready(function() {
+
+        $('.select2').select2();
+        $(".datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+        });
+
         $(".btn_delete").click(function(e) {
             e.preventDefault();
 

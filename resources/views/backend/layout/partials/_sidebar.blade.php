@@ -105,6 +105,24 @@
                         <p>Customer</p>
                     </a>
                 </li>
+                <li class="nav-item" >
+                    <a href="{{route('backend.purchase.index')}}" class="nav-link                
+                    @if(Route::currentRouteName() == 'backend.purchase.edit' ||
+                    Route::currentRouteName() == 'backend.purchase.index' ||
+                    Route::currentRouteName() == 'backend.purchase.create') active @endif">
+                        <i class="fas fa-ruler nav-icon"></i>
+                        <p>Purchase</p>
+                    </a>
+                </li>
+                <li class="nav-item" >
+                    <a href="{{route('backend.sale.index')}}" class="nav-link                
+                    @if(Route::currentRouteName() == 'backend.sale.edit' ||
+                    Route::currentRouteName() == 'backend.sale.index' ||
+                    Route::currentRouteName() == 'backend.sale.create') active @endif">
+                        <i class="fas fa-ruler nav-icon"></i>
+                        <p>Sale</p>
+                    </a>
+                </li>
                 <!-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->bigInteger('purchase_details_id');
             $table->bigInteger('product_id');
             $table->string('serial_number');
+            $table->tinyInteger('is_sold')->default(0);
+            $table->bigInteger('sale_id')->nullable();
+            $table->bigInteger('sale_details_id')->nullable();
             $table->bigInteger('creator');
             $table->bigInteger('editor')->nullable();
             $table->text('note')->nullable();

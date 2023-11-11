@@ -117,7 +117,11 @@
   {{--<script src="{{asset('backend/dist/js/pages/dashboard.js')}}"></script>--}}
 
   @yield('script-section')
-
+<script>
+  $(document).on("select2:open",()=>{
+    document.querySelector('.select2-search__field').focus();
+  });
+  </script>
 </body>
 
 </html>

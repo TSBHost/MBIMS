@@ -1,6 +1,6 @@
 @extends("backend.layout.app")
 
-@section("title","Purchase")
+@section("title","Sale")
 @section("style-section")
 
 <!-- summernote -->
@@ -13,12 +13,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.29/dist/sweetalert2.css"> @endsection
 @section("header-section") <div class="row mb-2">
     <div class="col-sm-6">
-        <h1 class="m-0">Purchase Add</h1>
+        <h1 class="m-0">Sale Add</h1>
     </div><!-- /.col -->
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Purchase</a></li>
+            <li class="breadcrumb-item"><a href="#">Sale</a></li>
             <li class="breadcrumb-item active">Add New </li>
         </ol>
     </div><!-- /.col -->
@@ -27,11 +27,11 @@
 <!-- Main row -->
 <div class="row">
     <div class="col-md-12">
-        <form action="{{route('backend.purchase.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('backend.sale.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Purchase Add New</h3>
+                    <h3 class="card-title">Add New Sale</h3>
                     <div class="float-sm-right">
 
                     </div>
@@ -61,20 +61,21 @@
                         <div class="col-md-6">
 
                             <div class="form-group">
-                                <label for="purchase_date">Purchase Date</label>
-                                <input type="text" class="form-control datepicker" id="purchase_date"
-                                    name="purchase_date" placeholder="Enter Purchase Date" required value="{{old('purchase_date')}}">
+                                <label for="sale_date">Sale Date</label>
+                                <input type="text" class="form-control datepicker" id="sale_date"
+                                    name="sale_date" placeholder="Enter Sale
+    Date" required value="{{old('sale_date')}}">
                             </div>
                         </div>
                         <div class="col-md-6">
 
                             <div class="form-group">
-                                <label for="supplier_id">Supplier</label>
-                                <select class="form-control select2" id="supplier_id" name="supplier_id" required>
-                                    <option value="">Select a supplier</option>
-                                    @foreach ($suppliers as $supplier)
-                                    <option value="{{$supplier->id}}" @if(old('supplier_id')==$supplier->id) selected
-                                        @endif>{{$supplier->name}}</option>
+                                <label for="customer_id">Customer</label>
+                                <select class="form-control select2" id="customer_id" name="customer_id" required>
+                                    <option value="">Select a customer</option>
+                                    @foreach ($customers as $customer)
+                                    <option value="{{$customer->id}}" @if(old('customer_id')==$customer->id) selected
+                                        @endif>{{$customer->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -92,9 +93,9 @@
                         <div class="col-md-6">
 
                             <div class="form-group">
-                                <label for="purchase_code">Purchase Code</label>
-                                <input type="text" class="form-control" id="purchase_code" name="purchase_code"
-                                    placeholder="Enter purchase code" value="{{old('purchase_code')}}">
+                                <label for="sale_code">Sale Code</label>
+                                <input type="text" class="form-control" id="sale_code" name="sale_code"
+                                    placeholder="Enter sale code" value="{{old('sale_code')}}">
                             </div>
                         </div>
                     </div>
@@ -103,7 +104,7 @@
 
                             <div class="card  card-success">
                                 <div class="card-header">
-                                    <h3 class="card-title">Purchase Details</h3>
+                                    <h3 class="card-title">Sale Details</h3>
                                     <div class="float-sm-right">
 
                                     </div>
@@ -130,18 +131,18 @@
                                         <div class="col-md-3">
 
                                             <div class="form-group">
-                                                <label for="price">Purchase Price</label>
+                                                <label for="price">Sale Price</label>
                                                 <input type="text" class="form-control calculate_total" id="price"
-                                                    name="price" placeholder="Enter Purchase Price">
+                                                    name="price" placeholder="Enter Sale Price">
                                             </div>
                                         </div>
                                         <div class=" col-md-3">
 
                                             <div class="form-group">
-                                                <label for="purchase_quantity">Quantity</label>
+                                                <label for="sale_quantity">Quantity</label>
                                                 <input type="text" class="form-control calculate_total"
-                                                    id="purchase_quantity" name="purchase_quantity"
-                                                    placeholder="Enter Purchase Quantity">
+                                                    id="sale_quantity" name="sale_quantity"
+                                                    placeholder="Enter Sale Quantity">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -168,21 +169,21 @@
                                         <div class="col-md-3">
 
                                             <div class="form-group">
-                                                <label for="purchase_note">Note</label>
-                                                <textarea class="form-control" id="purchase_note" name="purchase_note"
-                                                    placeholder="Enter purchase note"></textarea>
+                                                <label for="sale_note">Note</label>
+                                                <textarea class="form-control" id="sale_note" name="sale_note"
+                                                    placeholder="Enter sale note"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
 
                                             <div class="form-group">
-                                                <label for="purchase_serial">Serial (For multiple serial use comma
+                                                <label for="sale_serial">Serial (For multiple serial use comma
                                                     (,) to separate)</label>
                                                 <div class="row">
                                                     <div class="col-md-8">
 
-                                                        <input class="form-control" id="purchase_serial"
-                                                            name="purchase_serial" placeholder="Enter purchase serial">
+                                                    <select name="sale_serial" id="sale_serial" class="form-control" multiple>
+</select>
                                                     </div>
                                                     <div class="col-md-4">
 
@@ -195,8 +196,8 @@
                                         <div class="col-md-3">
 
                                             <div class="form-group">
-                                                <label for="purchase_serial">Serial</label>
-                                                <input type="hidden" name="purchase_serial_all" id="purchase_serial_all"
+                                                <label for="sale_serial">Serial</label>
+                                                <input type="hidden" name="sale_serial_all" id="sale_serial_all"
                                                     value="">
                                                 <div id="serials">
                                                 </div>
@@ -205,7 +206,7 @@
                                     </div>
                                     <div class="row">
 
-                                        <a href="#" id="add_details" class="btn btn-success">Add Purchase
+                                        <a href="#" id="add_details" class="btn btn-success">Add Sale
                                             Details</a>
                                     </div>
 
@@ -222,7 +223,7 @@
                                                 <th>Serials</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="purchase_details">
+                                        <tbody id="sale_details">
                                             @if(old("product_id"))
                                             @for($i = 0; $i < count(old("product_id")); $i++) <tr>
                                                 <td>
@@ -233,9 +234,9 @@
                                                         value="{{old('product_name')[$i]}}">
                                                 </td>
                                                 <td>
-                                                    {{old('purchase_price')[$i]}}
-                                                    <input type="hidden" name="purchase_price[]"
-                                                        value="{{old('purchase_price')[$i]}}">
+                                                    {{old('sale_price')[$i]}}
+                                                    <input type="hidden" name="sale_price[]"
+                                                        value="{{old('sale_price')[$i]}}">
                                                 </td>
                                                 <td>
                                                     {{old('quantity')[$i]}}
@@ -248,9 +249,9 @@
                                                         value="{{old('warranty_info')[$i]}}">
                                                 </td>
                                                 <td>
-                                                    {{old('quantity')[$i] * old('purchase_price')[$i]}}
+                                                    {{old('quantity')[$i] * old('sale_price')[$i]}}
                                                     <input type="hidden" name="total_amount[]"  class="total_amount"
-                                                        value="{{old('quantity')[$i] * old('purchase_price')[$i]}}">
+                                                        value="{{old('quantity')[$i] * old('sale_price')[$i]}}">
                                                 </td>
                                                 <td>
                                                     @if(old('serials')[$i])
@@ -281,30 +282,30 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-md-3"><label for="purchase_note">Sub Total</label></div>
+                        <div class="col-md-3"><label for="sale_note">Sub Total</label></div>
                         <div class="col-md-3"><input type="text" class="form-control" readonly id="total" name="total" value="{{old('total',0)}}">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3"><label for="purchase_note">Discount</label></div>
+                        <div class="col-md-3"><label for="sale_note">Discount</label></div>
                         <div class="col-md-3"><input type="text" class="form-control" id="discount" name="discount"
                                 value="0{{old('discount',0)}}"></div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label for="purchase_note">Payable Amount</label></div>
+                        <div class="col-md-3"><label for="sale_note">Payable Amount</label></div>
                         <div class="col-md-3"><input type="text" class="form-control" readonly id="payable_amount" name="payable_amount"
                                 value="{{old('payable_amount',0)}}"></div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label for="purchase_note">Paid Amount</label></div>
+                        <div class="col-md-3"><label for="sale_note">Paid Amount</label></div>
                         <div class="col-md-3"><input type="text" class="form-control" id="paid_amount"
                                 name="paid_amount" value="{{old('paid_amount',0)}}"></div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3"><label for="purchase_note">DUE</label></div>
+                        <div class="col-md-3"><label for="sale_note">DUE</label></div>
                         <div class="col-md-3"><input type="text" class="form-control" readonly id="due_amount" name="due_amount" value="{{old('due_amount',0)}}">
                         </div>
                     </div>
@@ -349,7 +350,7 @@ $(function() {
         $(this).bootstrapSwitch();
     })
     $(".calculate_total").change(function() {
-        var quantity = $("#purchase_quantity").val();
+        var quantity = $("#sale_quantity").val();
         var price = $("#price").val();
         $("#sub_total").val(quantity * price);
 
@@ -385,7 +386,7 @@ $(function() {
                 });
                 return;
             }
-            var quantity = $("#purchase_quantity").val();
+            var quantity = $("#sale_quantity").val();
             if (!(quantity > 0)) {
                 swal({
                     title: "Quantity Must be greater than  0",
@@ -394,20 +395,20 @@ $(function() {
                     button: true,
                     dangerMode: false,
                 }).then((isConfirm) => {
-                    $("#purchase_quantity").focus();
+                    $("#sale_quantity").focus();
                 });
                 return;
             }
             var warranty = $("#warranty").val();
-            var serial = $("#purchase_serial_all").val();
-            var note = $("#purchase_note").val();
-            var serial_array = $("#purchase_serial_all").val().split(",");
+            var serial = $("#sale_serial_all").val();
+            var note = $("#sale_note").val();
+            var serial_array = $("#sale_serial_all").val().split(",");
             var serial_data = '';
             $.each(serial_array, function(key, value) {
                 serial_data +=
                     `<span class="badge badge-success mr-2" style="font-size:100%" >${value}</span>`;
             });
-            $("#purchase_details").append(`
+            $("#sale_details").append(`
                 
                 <tr>
                                                 <td>
@@ -417,7 +418,7 @@ $(function() {
                                                 </td>
                                                 <td>
                                                 ${price}
-                                                    <input type="hidden" name="purchase_price[]" value="${price}">
+                                                    <input type="hidden" name="sale_price[]" value="${price}">
                                                 </td>
                                                 <td>
                                                 ${quantity}
@@ -449,9 +450,9 @@ $(function() {
             $('#product_id_all').val("");
             $('#product_id_all option:first').prop('selected', true);
             $("#price").val("");
-            $("#purchase_quantity").val("");
+            $("#sale_quantity").val("");
             $("#warranty").val("");
-            $("#purchase_serial_all").val("");
+            $("#sale_serial_all").val("");
             $("#serials").html("");
             $('#product_id_all').focus();
 
@@ -498,9 +499,10 @@ $(function() {
         
         $("#add_serial").click(function(e) {
             e.preventDefault();
-            var serial = $("#purchase_serial").val();
+            var serial_array = $("#sale_serial").val();
+            debugger;
             // if (serial.indexof(',') > 0)
-            var serial_array = serial.split(',');
+            // var serial_array = serial.split(',');
             $.each(serial_array, function(key, value) {
                 $("#serials").append(
                     `<span class="badge badge-success mr-2 serial" style="font-size:100%" >${value}</span>`
@@ -514,13 +516,41 @@ $(function() {
             });
 
             debugger;
-            $("#purchase_serial_all").val(val.join(','));
-            $("#purchase_serial").val("");
+            $("#sale_serial_all").val(val.join(','));
+            $("#sale_serial").val("");
 
-            $("#purchase_serial").focus();
+            $("#sale_serial").focus();
             // var all = val.join(',');
         });
     });
+    $("#product_id_all").change(function(){
+        debugger;
+        var url="{{route('backend.sale.get_unsold_serials','*')}}";
+        
+        $("#sale_serial").empty();
+        var product_id = $("#product_id_all option:selected").val();
+        $.ajax({
+                    url: url.replace('*',product_id),
+                    type: "get",
+                    data: {
+                        "_token": '{{csrf_token()}}',
+                    },
+                    success: function(data) {
+                        debugger;
+                        var sale_serial='';
+                        $.each(data,function(key,value){
+                            debugger;
+                            $("#sale_serial").append(`
+                            <option value="${value.serial_number}">${value.serial_number}</option>
+                            `)
+                        });
+                        $("#sale_serial").select2();
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        swal("Error deleting!", "Please try again", "error");
+                    }
+                });
+    })
 });
 </script>
 @endsection
